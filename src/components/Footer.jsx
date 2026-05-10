@@ -1,10 +1,10 @@
 const Footer = () => {
   return (
-    <footer className="bg-black text-gray-400 px-6 md:px-16 py-16">
+    <footer className="bg-black text-gray-400 px-6 md:px-16 py-16 mt-12">
       <div className="max-w-7xl mx-auto">
         <div className="mb-12">
           <h1 className="text-6xl md:text-7xl font-bold text-white">
-            Wanderlust
+            Expedivo
           </h1>
           <p className="mt-4 max-w-xl">
             Your gateway to extraordinary travel experiences around the world.

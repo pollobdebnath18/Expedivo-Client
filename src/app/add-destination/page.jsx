@@ -10,6 +10,7 @@ import {
   TextArea,
   Card,
 } from "@heroui/react";
+import { redirect } from "next/navigation";
 import { toast } from "react-toastify";
 
 const AddDestinationPage = () => {
@@ -28,11 +29,12 @@ const AddDestinationPage = () => {
     });
 
     const data = await res.json();
-     if (data.insertedId) {
-       toast.success("Destination Added Successfully");
-     } else {
-       toast.error("Failed to Add Destination");
-     }
+    if (data.insertedId) {
+      toast.success("Destination Added Successfully");
+      redirect("/destination");
+    } else {
+      toast.error("Failed to Add Destination");
+    }
     console.log(data);
   };
   return (

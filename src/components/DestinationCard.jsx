@@ -1,9 +1,11 @@
 import Image from "next/image";
+import Link from "next/link";
 import { FaLocationDot, FaClock } from "react-icons/fa6";
 import { MdCategory } from "react-icons/md";
 
 const DestinationCard = ({ destination }) => {
   const {
+    _id,
     destinationName,
     category,
     country,
@@ -60,9 +62,11 @@ const DestinationCard = ({ destination }) => {
             <h3 className="text-2xl font-bold text-orange-500">৳ {price}</h3>
           </div>
 
-          <button className="bg-orange-500 hover:bg-orange-600 text-white px-5 py-2 rounded-xl transition">
-            Book Now
-          </button>
+          <Link href={`/destination/${_id}`}>
+            <button className="bg-orange-500 hover:bg-orange-600 text-white px-5 py-2 rounded-xl transition cursor-pointer">
+              Book Now
+            </button>
+          </Link>
         </div>
       </div>
     </div>

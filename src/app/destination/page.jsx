@@ -4,7 +4,7 @@ import React from "react";
 const DestinationPage = async () => {
   const res = await fetch("http://localhost:5000/destination");
   const destinations = await res.json();
-  console.log(destinations);
+  // console.log(destinations);
   return (
     <div>
       <h1>All Destination</h1>
