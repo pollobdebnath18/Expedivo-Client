@@ -1,5 +1,7 @@
+import BookingCard from "@/components/BookingCard";
 import DeleteDestination from "@/components/DeleteDestination";
 import EditModal from "@/components/EditModal";
+import { DateField, Label } from "@heroui/react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -16,10 +18,7 @@ const DestinationDetailsPage = async ({ params }) => {
     category,
     country,
     imageUrl,
-    price,
     description,
-    duration,
-    departureDate,
   } = destination;
 
   return (
@@ -68,25 +67,7 @@ const DestinationDetailsPage = async ({ params }) => {
         </div>
 
         {/* Right Card */}
-        <div className="bg-white shadow-lg rounded-2xl p-6 border h-fit">
-          <h2 className="text-xl font-semibold mb-4">Trip Info</h2>
-
-          <div className="space-y-3 text-sm text-gray-700">
-            <p>
-              <span className="font-medium">Price:</span> ${price}
-            </p>
-            <p>
-              <span className="font-medium">Duration:</span> {duration} days
-            </p>
-            <p>
-              <span className="font-medium">Departure:</span> {departureDate}
-            </p>
-          </div>
-
-          <button className="mt-6 w-full bg-black text-white py-2 rounded-lg hover:bg-gray-800 transition">
-            Book Now
-          </button>
-        </div>
+        <BookingCard destination={destination}></BookingCard>
       </div>
     </div>
   );

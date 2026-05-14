@@ -3,7 +3,7 @@
 import React from "react";
 import { Button, Input, Label, Modal, Surface, TextField } from "@heroui/react";
 import { toast } from "react-toastify";
-import { redirect } from "next/navigation";
+
 
 const EditModal = ({ destination }) => {
   const {
