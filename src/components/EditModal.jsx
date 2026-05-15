@@ -28,7 +28,7 @@ const EditModal = ({ destination }) => {
     // console.log(tokenData?.token)
 
     const res = await fetch(
-      `${process.env.PUBLIC_NEXT_URL}/destination/${_id}`,
+      `${process.env.NEXT_PUBLIC_API_URL}/destination/${_id}`,
       {
         method: "PATCH",
         headers: {

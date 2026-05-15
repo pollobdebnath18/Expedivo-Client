@@ -9,7 +9,7 @@ export function BookingCancelAlert({ bookingId }) {
     const { data: tokenData } = await authClient.token();
     // console.log(tokenData)
     const res = await fetch(
-      `${process.env.PUBLIC_NEXT_URL}/booking/${bookingId}`,
+      `${process.env.NEXT_PUBLIC_API_URL}/booking/${bookingId}`,
       {
         method: "DELETE",
         headers: {

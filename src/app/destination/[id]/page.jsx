@@ -15,11 +15,14 @@ const DestinationDetailsPage = async ({ params }) => {
   });
   // console.log(token);
 
-  const res = await fetch(`${process.env.PUBLIC_NEXT_URL}/destination/${id}`, {
-    headers: {
-      authorization: `bearer ${token}`,
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/destination/${id}`,
+    {
+      headers: {
+        authorization: `bearer ${token}`,
+      },
     },
-  });
+  );
 
   const destination = await res.json();
 
@@ -31,7 +34,7 @@ const DestinationDetailsPage = async ({ params }) => {
     destination;
 
   return (
-    <div className="max-w-7xl mx-auto px-4 pt-3">
+    <div className="max-w-6xl mx-auto px-4 pt-3">
       <div className="flex justify-between items-center py-2">
         {/* Back Button */}
         <Link href="/destination">

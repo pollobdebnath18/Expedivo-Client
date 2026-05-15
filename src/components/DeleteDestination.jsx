@@ -12,7 +12,7 @@ const DeleteDestination = ({ destination }) => {
   const handleDelete = async () => {
     const { data: tokenData } = await authClient.token();
     const res = await fetch(
-      `${process.env.PUBLIC_NEXT_URL}/destination/${_id}`,
+      `${process.env.NEXT_PUBLIC_API_URL}/destination/${_id}`,
       {
         method: "DELETE",
         headers: {

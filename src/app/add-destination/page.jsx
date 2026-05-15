@@ -22,12 +22,12 @@ const AddDestinationPage = () => {
     // console.log(destination);
 
     const { data: tokenData } = await authClient.token();
-    // console.log(tokenData);
-    const res = await fetch(`${process.env.PUBLIC_NEXT_URL}/destination`, {
+    // console.log(tokenData?.token);
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/destination`, {
       method: "POST",
       headers: {
         "Content-type": "application/json",
-        authorization: `Bearer ${tokendata?.token}`,
+        authorization: `Bearer ${tokenData?.token}`,
       },
       body: JSON.stringify(destination),
     });
@@ -44,7 +44,7 @@ const AddDestinationPage = () => {
   return (
     <div className="max-w-7xl mx-auto p-5">
       <h2 className="text-2xl font-bold mb-4">Add Destination</h2>
-      <Card>
+      <Card className="bg-white shadow-lg">
         <form className="p-10 space-y-8 w-3xl" onSubmit={onSubmit}>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {/* Destination Name */}

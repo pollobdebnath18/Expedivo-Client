@@ -8,9 +8,9 @@ const Banner = () => {
           Discover Your <br /> Next Adventure
         </h1>
 
-        <p className="text-2xl">
-          Explore breathtaking destinations and create unforgettable memories
-          with our curated travel experiences.
+        <p className="text-xl text-white/60">
+          Discover stunning destinations and make memories that last a lifetime
+          with our handpicked travel experiences.
         </p>
 
         <div className="flex gap-5">

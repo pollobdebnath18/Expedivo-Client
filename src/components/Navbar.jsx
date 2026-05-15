@@ -1,78 +1,114 @@
 "use client";
+
+import { useState } from "react";
 import { authClient } from "@/lib/auth-client";
 import { Avatar, Button } from "@heroui/react";
 import Image from "next/image";
 import Link from "next/link";
+import { Menu, X } from "lucide-react";
+import { usePathname } from "next/navigation";
 
 const Navbar = () => {
   const { data: session } = authClient.useSession();
   const user = session?.user;
-  // console.log(user);
+
+  const [open, setOpen] = useState(false);
+  const pathname = usePathname();
 
   const handleSignOut = async () => {
     await authClient.signOut();
   };
 
+  const navLinks = [
+    { href: "/", label: "Home" },
+    { href: "/destination", label: "Destination" },
+    { href: "/add-destination", label: "Add Destination" },
+    { href: "/my-bookings", label: "My Bookings" },
+  ];
+
+  const isActive = (path) => pathname === path;
+
   return (
-    <div>
-      <nav className="flex justify-between bg-white shadow-sm p-4">
-        <ul className="flex gap-3">
-          <li>
-            <Link href={"/"}>Home</Link>
-          </li>
-          <li>
-            <Link href={"/destination"}>Destination</Link>
-          </li>
-          <li>
-            <Link href={"/add-destination"}>Add Destination</Link>
-          </li>
-          <li>
-            <Link href="/my-bookings">My Bookings</Link>
-          </li>
-        </ul>
-        <div>
+    <div className="bg-white shadow-sm">
+      <nav className="flex items-center justify-between py-4 max-w-6xl mx-auto px-4">
+        {/* LEFT - Mobile menu icon */}
+        <div className="md:hidden">
+          <button onClick={() => setOpen(!open)}>
+            {open ? <X /> : <Menu />}
+          </button>
+        </div>
+
+        {/* CENTER LOGO */}
+        <div className="hidden md:block ">
           <Image
             src={"/assets/Expedivo.png"}
-            alt={"logo"}
-            width={200}
-            height={200}
-          ></Image>
+            alt="logo"
+            width={180}
+            height={180}
+          />
         </div>
-        <ul className="flex gap-3">
+
+        {/* DESKTOP MENU */}
+        <ul className="hidden md:flex gap-6">
+          {navLinks.map((link) => (
+            <li key={link.href}>
+              <Link
+                href={link.href}
+                className={`${
+                  isActive(link.href)
+                    ? "text-black font-bold border-b-2 border-black"
+                    : "text-gray-600"
+                }`}
+              >
+                {link.label}
+              </Link>
+            </li>
+          ))}
+        </ul>
+
+        {/* RIGHT AUTH */}
+        <div className="flex items-center gap-3">
           {user ? (
-            <div className="flex items-center gap-4">
-              <li>
-                {" "}
-                <Avatar>
-                  <Avatar.Image
-                    referrerPolicy="no-referrer"
-                    alt="John Doe"
-                    src={user?.image}
-                  />
-                  <Avatar.Fallback>{user?.name.charAt(0)}</Avatar.Fallback>
-                </Avatar>
-              </li>
-              <Button variant="danger" onClick={handleSignOut}>
-                SignOut
+            <>
+              <Avatar>
+                <Avatar.Image referrerPolicy="no-referrer" src={user?.image} />
+                <Avatar.Fallback>{user?.name?.charAt(0)}</Avatar.Fallback>
+              </Avatar>
+
+              <Button size="sm" variant="danger" onClick={handleSignOut}>
+                Sign Out
               </Button>
-            </div>
+            </>
           ) : (
             <>
-              <li className="btn">
-                <Button variant="primary">
-                  {" "}
-                  <Link href={"/signin"}>Sign In</Link>
-                </Button>
-              </li>
-              <li className="btn">
-                <Button variant="primary">
-                  <Link href={"/signup"}>Sign Up</Link>
-                </Button>
-              </li>
+              <Link href="/signin" className="text-sm">
+                Sign In
+              </Link>
+              <Link href="/signup" className="text-sm">
+                Sign Up
+              </Link>
             </>
           )}
-        </ul>
+        </div>
       </nav>
+
+      {/* MOBILE MENU */}
+      {open && (
+        <div className="md:hidden px-4 pb-4 space-y-3">
+          {navLinks.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              onClick={() => setOpen(false)}
+              className={`block py-2 ${
+                isActive(link.href) ? "text-black font-bold" : "text-gray-600"
+              }`}
+            >
+              {link.label}
+            </Link>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

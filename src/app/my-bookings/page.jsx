@@ -16,7 +16,7 @@ const MyBookingsPage = async () => {
   // console.log(token);
 
   const res = await fetch(
-    `${process.env.PUBLIC_NEXT_URL}/booking/${user?.id}`,
+    `${process.env.NEXT_PUBLIC_API_URL}/booking/${user?.id}`,
     {
       headers: {
         authorization: `Bearer ${token}`,
