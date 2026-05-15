@@ -1,25 +1,34 @@
 import BookingCard from "@/components/BookingCard";
 import DeleteDestination from "@/components/DeleteDestination";
 import EditModal from "@/components/EditModal";
+import { auth } from "@/lib/auth";
 import { DateField, Label } from "@heroui/react";
+import { headers } from "next/headers";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { FaArrowLeft, FaEdit } from "react-icons/fa";
 const DestinationDetailsPage = async ({ params }) => {
   const { id } = await params;
+  const { token } = await auth.api.getToken({
+    headers: await headers(),
+  });
+  // console.log(token);
 
-  const res = await fetch(`http://localhost:5000/destination/${id}`);
+  const res = await fetch(`${process.env.PUBLIC_NEXT_URL}/destination/${id}`, {
+    headers: {
+      authorization: `bearer ${token}`,
+    },
+  });
 
   const destination = await res.json();
 
-  const {
-    destinationName,
-    category,
-    country,
-    imageUrl,
-    description,
-  } = destination;
+  if (!destination) {
+    return <div>Loading...</div>;
+  }
+
+  const { destinationName, category, country, imageUrl, description } =
+    destination;
 
   return (
     <div className="max-w-7xl mx-auto px-4 pt-3">
@@ -40,12 +49,14 @@ const DestinationDetailsPage = async ({ params }) => {
       </div>
       {/* Image Section */}
       <div className="relative w-full h-[200px] md:h-[300px] rounded-2xl overflow-hidden shadow-lg">
-        <Image
-          src={imageUrl}
-          alt={destinationName}
-          fill
-          className="object-cover"
-        />
+        {imageUrl && (
+          <Image
+            src={imageUrl}
+            alt={destinationName || "destination"}
+            fill
+            className="object-cover"
+          />
+        )}
       </div>
 
       {/* Content Section */}

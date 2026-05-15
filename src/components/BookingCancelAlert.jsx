@@ -1,16 +1,23 @@
 "use client";
 
+import { authClient } from "@/lib/auth-client";
 import { AlertDialog, Button } from "@heroui/react";
 
 export function BookingCancelAlert({ bookingId }) {
   // console.log(bookingId)
   const handleDelete = async () => {
-    const res = await fetch(`http://localhost:5000/booking/${bookingId}`, {
-      method: "DELETE",
-      headers: {
-        "content-type": "application/json",
+    const { data: tokenData } = await authClient.token();
+    // console.log(tokenData)
+    const res = await fetch(
+      `${process.env.PUBLIC_NEXT_URL}/booking/${bookingId}`,
+      {
+        method: "DELETE",
+        headers: {
+          "content-type": "application/json",
+          authorization: `Bearer ${tokenData?.token}`,
+        },
       },
-    });
+    );
     const data = await res.json();
     // console.log(data)
     window.location.reload();

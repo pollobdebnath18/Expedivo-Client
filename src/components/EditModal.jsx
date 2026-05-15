@@ -3,7 +3,7 @@
 import React from "react";
 import { Button, Input, Label, Modal, Surface, TextField } from "@heroui/react";
 import { toast } from "react-toastify";
-
+import { authClient } from "@/lib/auth-client";
 
 const EditModal = ({ destination }) => {
   const {
@@ -24,13 +24,20 @@ const EditModal = ({ destination }) => {
     const formData = new FormData(e.target);
     const updatedDestination = Object.fromEntries(formData.entries());
 
-    const res = await fetch(`http://localhost:5000/destination/${_id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
+    const { data: tokenData } = await authClient.token();
+    // console.log(tokenData?.token)
+
+    const res = await fetch(
+      `${process.env.PUBLIC_NEXT_URL}/destination/${_id}`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${tokenData?.token}`,
+        },
+        body: JSON.stringify(updatedDestination),
       },
-      body: JSON.stringify(updatedDestination),
-    });
+    );
 
     const data = await res.json();
 

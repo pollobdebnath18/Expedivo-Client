@@ -8,12 +8,21 @@ const MyBookingsPage = async () => {
   const session = await auth.api.getSession({
     headers: await headers(),
   });
-
   const user = session?.user;
 
-  const res = await fetch(`http://localhost:5000/booking/${user?.id}`, {
-    cache: "no-store",
+  const { token } = await auth.api.getToken({
+    headers: await headers(),
   });
+  // console.log(token);
+
+  const res = await fetch(
+    `${process.env.PUBLIC_NEXT_URL}/booking/${user?.id}`,
+    {
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    },
+  );
 
   const bookings = await res.json();
 
@@ -21,7 +30,9 @@ const MyBookingsPage = async () => {
     <div className="max-w-5xl mx-auto my-10 space-y-6">
       <div>
         <h2 className="text-3xl font-bold text-center">My Booking</h2>
-        <p className="text-center">My all destination with price and all information</p>
+        <p className="text-center">
+          My all destination with price and all information
+        </p>
       </div>
       {bookings.map((booking) => (
         <div
@@ -64,8 +75,9 @@ const MyBookingsPage = async () => {
 
               {/* Buttons */}
               <div className="flex gap-3">
-                <BookingCancelAlert bookingId={booking._id}></BookingCancelAlert>
-                
+                <BookingCancelAlert
+                  bookingId={booking._id}
+                ></BookingCancelAlert>
 
                 <button className="bg-black hover:bg-gray-800 text-white px-5 py-2 rounded-lg transition">
                   View

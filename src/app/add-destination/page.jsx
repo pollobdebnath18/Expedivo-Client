@@ -1,4 +1,5 @@
 "use client";
+import { authClient } from "@/lib/auth-client";
 import {
   Select,
   Button,
@@ -20,10 +21,13 @@ const AddDestinationPage = () => {
     const destination = Object.fromEntries(formData.entries());
     // console.log(destination);
 
-    const res = await fetch("http://localhost:5000/destination", {
+    const { data: tokenData } = await authClient.token();
+    // console.log(tokenData);
+    const res = await fetch(`${process.env.PUBLIC_NEXT_URL}/destination`, {
       method: "POST",
       headers: {
         "Content-type": "application/json",
+        authorization: `Bearer ${tokendata?.token}`,
       },
       body: JSON.stringify(destination),
     });

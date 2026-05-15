@@ -1,4 +1,5 @@
 "use client";
+import { authClient } from "@/lib/auth-client";
 import { TrashBin } from "@gravity-ui/icons";
 import { AlertDialog, Button } from "@heroui/react";
 import { redirect } from "next/navigation";
@@ -9,18 +10,23 @@ const DeleteDestination = ({ destination }) => {
   const { _id, destinationName } = destination;
 
   const handleDelete = async () => {
-    const res = await fetch(`http://localhost:5000/destination/${_id}`, {
-      method: "DELETE",
-      headers: {
-        "content-type": "application/json",
+    const { data: tokenData } = await authClient.token();
+    const res = await fetch(
+      `${process.env.PUBLIC_NEXT_URL}/destination/${_id}`,
+      {
+        method: "DELETE",
+        headers: {
+          "content-type": "application/json",
+          authorization: `Bearer ${tokenData?.token}`,
+        },
       },
-    });
+    );
     const data = await res.json();
     // redirect('/destination')
     // console.log(data)
     if (data.deletedCount > 0) {
       toast.success("Destination Successfully Delete");
-      redirect('/destination')
+      redirect("/destination");
     } else {
       toast.error("Destination Delete Failed");
     }
