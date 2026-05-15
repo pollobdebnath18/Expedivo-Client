@@ -10,7 +10,7 @@ const Banner = () => {
 
         <p className="text-xl text-white/60">
           Discover stunning destinations and make memories that last a lifetime
-          with our handpicked travel experiences.
+          with our handpicked travel beutiful experiences.
         </p>
 
         <div className="flex gap-5">
