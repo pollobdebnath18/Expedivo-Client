@@ -7,11 +7,14 @@ const DestinationPage = async () => {
   // console.log(destinations);
   return (
     <div>
-      <h1>All Destination</h1>
+      <h1 className="text-2xl font-bold mx-8 my-3">All Destination</h1>
       <div className="grid grid-cols-3 gap-10 mx-8 mb-12">
-        {
-            destinations.map(destination=><DestinationCard key={destination._id} destination={destination}></DestinationCard>)
-        }
+        {destinations.map((destination) => (
+          <DestinationCard
+            key={destination._id}
+            destination={destination}
+          ></DestinationCard>
+        ))}
       </div>
     </div>
   );
