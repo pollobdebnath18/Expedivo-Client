@@ -70,10 +70,15 @@ const Navbar = () => {
         <div className="flex items-center gap-3">
           {user ? (
             <>
-              <Avatar>
-                <Avatar.Image referrerPolicy="no-referrer" src={user?.image} />
-                <Avatar.Fallback>{user?.name?.charAt(0)}</Avatar.Fallback>
-              </Avatar>
+              <Link href={"/profiles"}>
+                <Avatar className="cursor-pointer">
+                  <Avatar.Image
+                    referrerPolicy="no-referrer"
+                    src={user?.image}
+                  />
+                  <Avatar.Fallback>{user?.name?.charAt(0)}</Avatar.Fallback>
+                </Avatar>
+              </Link>
 
               <Button size="sm" variant="danger" onClick={handleSignOut}>
                 Sign Out
@@ -81,10 +86,17 @@ const Navbar = () => {
             </>
           ) : (
             <>
-              <Link href="/signin" className="text-sm">
+              <Link
+                href="/signin"
+                className="px-4 py-2 text-sm font-medium bg-cyan-500 text-white rounded-full hover:text-cyan-600 transition shadow-md"
+              >
                 Sign In
               </Link>
-              <Link href="/signup" className="text-sm">
+
+              <Link
+                href="/signup"
+                className="px-4 py-2 text-sm font-medium bg-cyan-500 text-white rounded-full hover:text-cyan-600 transition shadow-md"
+              >
                 Sign Up
               </Link>
             </>

@@ -2,6 +2,7 @@ import { BookingCancelAlert } from "@/components/BookingCancelAlert";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 const MyBookingsPage = async () => {
@@ -27,7 +28,7 @@ const MyBookingsPage = async () => {
   const bookings = await res.json();
 
   return (
-    <div className="max-w-5xl mx-auto my-10 space-y-6">
+    <div className="max-w-6xl mx-auto my-10 space-y-6">
       <div>
         <h2 className="text-3xl font-bold text-center">My Booking</h2>
         <p className="text-center">
@@ -79,9 +80,11 @@ const MyBookingsPage = async () => {
                   bookingId={booking._id}
                 ></BookingCancelAlert>
 
-                <button className="bg-black hover:bg-gray-800 text-white px-5 py-2 rounded-lg transition">
-                  View
-                </button>
+                <Link href={`/destination/${booking.destinationId}`}>
+                  <button className="bg-black hover:bg-gray-800 text-white px-5 py-2 rounded-lg transition cursor-pointer">
+                    View
+                  </button>
+                </Link>
               </div>
             </div>
           </div>

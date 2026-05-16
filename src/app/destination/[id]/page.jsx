@@ -34,7 +34,7 @@ const DestinationDetailsPage = async ({ params }) => {
     destination;
 
   return (
-    <div className="max-w-6xl mx-auto px-4 pt-3">
+    <div className="max-w-5xl mx-auto px-4 pt-3">
       <div className="flex justify-between items-center py-2">
         {/* Back Button */}
         <Link href="/destination">
