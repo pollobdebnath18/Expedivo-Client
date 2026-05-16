@@ -14,7 +14,7 @@ const Featured = async () => {
         <div>
           <h1 className="text-4xl font-bold pb-2">Featured Destinations</h1>
           <p className=" text-black/60">
-            Handpicked travel experiences for the adventure seekers
+            Handpicked travel experience for the adventure seekers
           </p>
         </div>
         <div>
