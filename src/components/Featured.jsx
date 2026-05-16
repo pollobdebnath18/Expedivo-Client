@@ -6,8 +6,9 @@ import Link from "next/link";
 
 const Featured = async () => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/featured`);
+
   const destinations = await res.json();
-  //   console.log(data);
+  console.log(destinations);
   return (
     <div>
       <div className="flex items-center justify-between mx-8 mt-12">
